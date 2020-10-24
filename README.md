@@ -8,5 +8,5 @@
   > - `main.py`: `weather.py`와 `database.py`를 이용하여 값을 사용하는 **main** 파일입니다.
   
   
-  ##라이선스
+### 라이선스
     - 해당 라이선스는 [다음](/LICENSE)과 같습니다.
