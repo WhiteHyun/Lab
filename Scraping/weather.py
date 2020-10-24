@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 # Weather Scraping
 def extract_weather() -> list:
     """
-    https://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp?sido=2800000000&gugun=2818500000&dong=2818582000&x=21&y=3
-    https://kocoafab.cc/tutorial/view/595
+    분석할 기상청 주소: https://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp?sido=2800000000&gugun=2818500000&dong=2818582000&x=21&y=3
+    참고한 사이트: https://kocoafab.cc/tutorial/view/595
 
     <day>: 날짜,    오늘: 0, 내일: 1, 모레: 2
     <temp> 온도
@@ -26,6 +26,8 @@ def extract_weather() -> list:
     Return:
         weather_data (doubled list): 리스트내부의 리스트 마다 각 날짜별 데이터들을 가지고있습니다.
     """
+
+    #크롤링할 url 주소
     URL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=2818582000"
     SEQ_NUM = 17
     weather_result = requests.get(URL)
@@ -36,8 +38,6 @@ def extract_weather() -> list:
         temp = weather_soup.find("data", {"seq": i})
         if temp is not None:
             data_list.append(temp)
-        
-
 
     data_length = len(data_list)
     weather_data = [[] for i in range(len(data_list))]
@@ -48,7 +48,5 @@ def extract_weather() -> list:
         weather_data[n].append(data_list[n].find("hour").string)
         weather_data[n].append(data_list[n].find("temp").string)
         weather_data[n].append(data_list[n].find("reh").string)
-
-    
 
     return weather_data
