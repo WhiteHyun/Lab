@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 # Weather Scraping
-def extract_weather() -> (list, list, list, list):
+def extract_weather() -> list:
     """
     https://www.weather.go.kr/weather/lifenindustry/sevice_rss.jsp?sido=2800000000&gugun=2818500000&dong=2818582000&x=21&y=3
     https://kocoafab.cc/tutorial/view/595
@@ -36,12 +36,14 @@ def extract_weather() -> (list, list, list, list):
         temp = weather_soup.find("data", {"seq": i})
         if temp is not None:
             data_list.append(temp)
+        
 
 
     data_length = len(data_list)
     weather_data = [[] for i in range(len(data_list))]
 
     for n in range(data_length):
+        #각 데이터들을 참조하여 날짜, 시간, 온도, 습도 순서로 추가
         weather_data[n].append(data_list[n].find("day").string)
         weather_data[n].append(data_list[n].find("hour").string)
         weather_data[n].append(data_list[n].find("temp").string)
